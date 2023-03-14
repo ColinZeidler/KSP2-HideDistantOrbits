@@ -1,0 +1,21 @@
+{
+  "mod_id": "hide_orbits",
+  "author": "Strykker2",
+  "name": "Hide Orbits",
+  "description": "Automatically hide distant orbits while zoomed in",
+  "source": "https://github.com/ColinZeidler/KSP2-HideDistantOrbits",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "id":  "SpaceWarp",
+      "version": {
+        "min": "0.4.0",
+        "max": "*"
+      }
+    }
+  ],
+  "ksp2_version": {
+    "min": "0.1.0",
+    "max": "*"
+  }
+}
