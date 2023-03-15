@@ -23,9 +23,36 @@ namespace HideOrbits
                 //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel parent Guid {vesselParentBody.SimulationObject.GlobalId}");
             }
 
-            //HideOrbitsPlugin.Instance.logger.LogInfo("OrbitRenderer Called");
             if (HideOrbitsPlugin.Instance != null && HideOrbitsPlugin.Instance.AutoHideOrbits) {
                 //HideOrbitsPlugin.Instance.logger.LogInfo("Updating orbits");
+
+                //Collect bodies related to local planet (and its moons)
+                Dictionary<IGGuid, CelestialBodyComponent> vesselParentChildren = new();
+                foreach (OrbitRenderer.OrbitRenderData orbitRenderData in ____orbitRenderData.Values)
+                {
+                    if (orbitRenderData.Segments != null)
+                    {
+                        if (orbitRenderData.IsCelestialBody)
+                        {
+                            CelestialBodyComponent orbitBody = GameManager.Instance.Game.SpaceSimulation.GetSimulationObjectComponent<CelestialBodyComponent>(orbitRenderData.ParentGuid);
+                            if (orbitBody.HasChild(vesselParentBody) || orbitBody.SimulationObject.GlobalId == vesselParentBody.SimulationObject.GlobalId)
+                            {
+                                if (!orbitBody.IsStar)
+                                {
+                                    foreach (CelestialBodyComponent child in orbitBody.orbitingBodies)
+                                    {
+                                        if (child != null)
+                                        {
+                                            vesselParentChildren.Add(child.SimulationObject.GlobalId, child);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Hide unimportant orbits
                 foreach (OrbitRenderer.OrbitRenderData orbitRenderData in ____orbitRenderData.Values)
                 {
                     if (orbitRenderData.Segments != null)
@@ -40,13 +67,18 @@ namespace HideOrbits
 
                             // check if current orbitRenderData body is a child of vesselParentBody
                             CelestialBodyComponent orbitBody = GameManager.Instance.Game.SpaceSimulation.GetSimulationObjectComponent<CelestialBodyComponent>(orbitRenderData.ParentGuid);
+                            if (vesselParentChildren.ContainsKey(orbitRenderData.ParentGuid))
+                            {
+                                continue;
+                            }
+
                             if ((bool)orbitBody?.HasParent(vesselParentBody))
                             {
                                 continue;
                             }
 
                             // TODO what happens if we orbit Mun, will we see Minmus Orbit? Kerbin Orbit?
-                            if ((bool)orbitBody.HasChild(vesselParentBody))
+                            if (orbitBody.HasChild(vesselParentBody))
                             {
                                 continue;
                             }
@@ -55,6 +87,7 @@ namespace HideOrbits
                             if (targetOrbit)
                             {
                                 continue;
+                                // TODO change color of target orbits?
                             }
 
                             foreach (OrbitRenderSegment segment in orbitRenderData.Segments)
