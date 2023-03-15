@@ -105,6 +105,7 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
         {
             AutoHideOrbits = !AutoHideOrbits;
         }
+        GUILayout.EndHorizontal();
         GUI.DragWindow(new Rect(0, 0, 10000, 500));
     }
 }

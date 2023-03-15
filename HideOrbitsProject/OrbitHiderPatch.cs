@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HarmonyLib;
+﻿using HarmonyLib;
 using KSP.Game;
 using KSP.Map;
 using KSP.Sim.impl;
@@ -17,9 +14,13 @@ namespace HideOrbits
         [HarmonyPostfix]
         public static void OrbitRenderer_UpdateOrbitStyling(Dictionary<IGGuid, OrbitRenderer.OrbitRenderData> ____orbitRenderData)
         {
+            CelestialBodyComponent vesselParentBody = null;
             VesselComponent activeVessel = GameManager.Instance.Game.ViewController.GetActiveSimVessel(true);
             if (activeVessel != null)
             {
+                //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel Guid {activeVessel.Guid}");
+                vesselParentBody = activeVessel.mainBody;
+                //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel parent Guid {vesselParentBody.Guid}");
             }
 
             //HideOrbitsPlugin.Instance.logger.LogInfo("OrbitRenderer Called");
@@ -31,9 +32,13 @@ namespace HideOrbits
                     {
                         if (orbitRenderData.IsCelestialBody)
                         {
+                            //HideOrbitsPlugin.Instance.logger.LogInfo($"orbitRenderData parent Guid {orbitRenderData.ParentGuid}");
+                            if (orbitRenderData.ParentGuid.ToString() == vesselParentBody?.Guid)
+                            {
+                                continue;
+                            }
                             foreach (OrbitRenderSegment segment in orbitRenderData.Segments)
                             {
-                                Color startColor = hiddenOrbit;
                                 segment.SetColors(hiddenOrbit, hiddenOrbit);
                             }
                         }
@@ -41,6 +46,5 @@ namespace HideOrbits
                 }
             }
         }
-
     }
 }
