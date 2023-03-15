@@ -8,7 +8,7 @@
         <AssemblyName>com.github.colinzeidler.hide_distant_orbits</AssemblyName>
         <Product>Hide Orbits</Product>
         <Description>Automatically hide distant orbits while zoomed in</Description>
-        <Version>1.0.0</Version>
+        <Version>0.2.0</Version>
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
             https://nuget.bepinex.dev/v3/index.json
