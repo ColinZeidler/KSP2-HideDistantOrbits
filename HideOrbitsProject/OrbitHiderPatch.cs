@@ -20,7 +20,7 @@ namespace HideOrbits
             {
                 //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel Guid {activeVessel.Guid}");
                 vesselParentBody = activeVessel.mainBody;
-                //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel parent Guid {vesselParentBody.Guid}");
+                //HideOrbitsPlugin.Instance.logger.LogInfo($"Vessel parent Guid {vesselParentBody.SimulationObject.GlobalId}");
             }
 
             //HideOrbitsPlugin.Instance.logger.LogInfo("OrbitRenderer Called");
@@ -32,11 +32,31 @@ namespace HideOrbits
                     {
                         if (orbitRenderData.IsCelestialBody)
                         {
-                            //HideOrbitsPlugin.Instance.logger.LogInfo($"orbitRenderData parent Guid {orbitRenderData.ParentGuid}");
-                            if (orbitRenderData.ParentGuid.ToString() == vesselParentBody?.Guid)
+                            // orbitRenderData.ParentGuid is the Guid of the planet the orbit is for.
+                            if (orbitRenderData.ParentGuid == vesselParentBody?.SimulationObject.GlobalId)
                             {
                                 continue;
                             }
+
+                            // check if current orbitRenderData body is a child of vesselParentBody
+                            CelestialBodyComponent orbitBody = GameManager.Instance.Game.SpaceSimulation.GetSimulationObjectComponent<CelestialBodyComponent>(orbitRenderData.ParentGuid);
+                            if ((bool)orbitBody?.HasParent(vesselParentBody))
+                            {
+                                continue;
+                            }
+
+                            // TODO what happens if we orbit Mun, will we see Minmus Orbit? Kerbin Orbit?
+                            if ((bool)orbitBody.HasChild(vesselParentBody))
+                            {
+                                continue;
+                            }
+
+                            bool targetOrbit = activeVessel != null && activeVessel.TargetObjectId == orbitRenderData.Orbiter.SimulationObject.GlobalId;
+                            if (targetOrbit)
+                            {
+                                continue;
+                            }
+
                             foreach (OrbitRenderSegment segment in orbitRenderData.Segments)
                             {
                                 segment.SetColors(hiddenOrbit, hiddenOrbit);
