@@ -4,7 +4,7 @@
   "name": "Hide Orbits",
   "description": "Automatically hide distant orbits while zoomed in",
   "source": "https://github.com/ColinZeidler/KSP2-HideDistantOrbits",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": [
     {
       "id":  "SpaceWarp",
