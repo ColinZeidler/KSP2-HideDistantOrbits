@@ -45,11 +45,7 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
             "Hide Orbits",
             ToolbarFlightButtonID,
             AssetManager.GetAsset<Texture2D>($"{SpaceWarpMetadata.ModID}/images/icon.png"),
-            isOpen =>
-            {
-                _isWindowOpen = isOpen;
-                GameObject.Find(ToolbarFlightButtonID)?.GetComponent<UIValue_WriteBool_Toggle>()?.SetValue(isOpen);
-            }
+            ToggleGuiButton
         );
 
         // Register all Harmony patches in the project
@@ -69,6 +65,12 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
         // Log the config value into <KSP2 Root>/BepInEx/LogOutput.log
         Logger.LogInfo($"OrbitHiding: {configValue.Value}");
         logger = Logger;
+    }
+
+    void ToggleGuiButton(bool toggle)
+    {
+        _isWindowOpen = toggle;
+        GameObject.Find(ToolbarFlightButtonID)?.GetComponent<UIValue_WriteBool_Toggle>()?.SetValue(toggle);
     }
 
     /// <summary>
@@ -98,6 +100,24 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
     /// <param name="windowID"></param>
     private void FillWindow(int windowID)
     {
+        GUILayout.BeginVertical();
+        var exitRect = new Rect(_windowRect.width - 18, 2, 16, 16);
+        string exitFont = "<size=8>x</size>";
+        if (exitRect.Contains(Event.current.mousePosition))
+        {
+            exitFont = "<color=red><size=8>x</size></color>";
+        }
+
+        if (GUI.Button(exitRect, exitFont))
+        {
+            if (_isWindowOpen)
+            {
+                ToggleGuiButton(false);
+            }
+        }
+        GUILayout.EndVertical();
+
+
         GUILayout.BeginHorizontal();
         GUILayout.Label("Hide Orbits - Automatically hide distant planet orbits while zoomed in");
         GUILayout.EndHorizontal();
