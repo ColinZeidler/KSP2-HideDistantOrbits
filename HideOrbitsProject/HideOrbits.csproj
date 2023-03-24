@@ -8,7 +8,7 @@
         <AssemblyName>com.github.colinzeidler.hide_distant_orbits</AssemblyName>
         <Product>Hide Orbits</Product>
         <Description>Automatically hide distant orbits while zoomed in</Description>
-        <Version>0.3.1</Version>
+        <Version>0.4.0</Version>
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
             https://nuget.bepinex.dev/v3/index.json
@@ -22,6 +22,11 @@
             <Publicize>true</Publicize>
             <Private>false</Private>
         </Reference>
+      <Reference Include="SpaceWarp">
+        <HintPath>..\external_dlls\SpaceWarp.dll</HintPath>
+        <Publicize>true</Publicize>
+        <Private>false</Private>
+      </Reference>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
@@ -29,7 +34,6 @@
         <PackageReference Include="BepInEx.Core" Version="5.*"/>
         <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
         <PackageReference Include="HarmonyX" Version="2.10.1"/>
-        <PackageReference Include="SpaceWarp" Version="0.4.0"/>
         <PackageReference Include="UnityEngine.Modules" Version="2020.3.33" IncludeAssets="compile"/>
     </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
