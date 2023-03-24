@@ -95,8 +95,23 @@ namespace HideOrbits
                                 segment.SetColors(hiddenOrbit, hiddenOrbit);
                             }
                         }
+                        else
+                        {
+                            if (!HideOrbitsPlugin.Instance.HideVesselOrbits)
+                            {
+                                continue;
+                            }
+                            if (orbitRenderData.Vessel.GlobalId != activeVessel.GlobalId && orbitRenderData.Vessel.GlobalId != activeVessel.TargetObjectId)
+                            {
+                                foreach (OrbitRenderSegment segment in orbitRenderData.Segments)
+                                {
+                                    segment.SetColors(hiddenOrbit, hiddenOrbit);
+                                }
+                            }
+                        }
                     }
-                }
+                } // end Hide orbits
+
             }
         }
     }

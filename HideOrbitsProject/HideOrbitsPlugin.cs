@@ -24,6 +24,7 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
     private Rect _windowRect;
 
     public bool AutoHideOrbits { get; private set; }
+    public bool HideVesselOrbits { get; private set; }
     public ManualLogSource logger { get; private set; }
 
     private const string ToolbarFlightButtonID = "BTN-HideOrbitsFlight";
@@ -61,6 +62,9 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
         var configValue = Config.Bind<bool>("Orbits", "Enable Orbit Hiding", defaultValue, "Enables automatic hiding of distant orbits");
         AutoHideOrbits = configValue.Value;
 
+        var hideVessels = Config.Bind<bool>("Orbits", "Enable Vessel Orbit Hiding", defaultValue, "Hides non active or target vessel orbits by default");
+        HideVesselOrbits = hideVessels.Value;
+
         
         // Log the config value into <KSP2 Root>/BepInEx/LogOutput.log
         Logger.LogInfo($"OrbitHiding: {configValue.Value}");
@@ -95,17 +99,28 @@ public class HideOrbitsPlugin : BaseSpaceWarpPlugin
     private void FillWindow(int windowID)
     {
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Hide Orbits - Automatically hide distant orbits while zoomed in");
+        GUILayout.Label("Hide Orbits - Automatically hide distant planet orbits while zoomed in");
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
         GUILayout.Label($"Auto hiding orbits: {AutoHideOrbits}");
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Toggle Orbits"))
+        if (GUILayout.Button("Toggle Planet Orbits"))
         {
             AutoHideOrbits = !AutoHideOrbits;
         }
         GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label($"Hiding vessel orbits: {HideVesselOrbits}");
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Toggle Vessel Orbits"))
+        {
+            HideVesselOrbits = !HideVesselOrbits;
+        }
+        GUILayout.EndHorizontal();
+
         GUI.DragWindow(new Rect(0, 0, 10000, 500));
     }
 }
