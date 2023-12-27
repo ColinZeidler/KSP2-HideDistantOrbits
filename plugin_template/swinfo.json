@@ -1,0 +1,23 @@
+{
+  "spec": "2.0",
+  "mod_id": "HideOrbits",
+  "author": "Strykker2",
+  "name": "HideOrbits",
+  "description": "UI to toggle distant orbits if they get in the way",
+  "source": "https://github.com/ColinZeidler/KSP2-HideDistantOrbits",
+  "version": "0.5.0",
+  "version_check": "",
+  "ksp2_version": {
+    "min": "0.2.0",
+    "max": "*"
+  },
+  "dependencies": [
+    {
+      "id": "com.github.x606.spacewarp",
+      "version": {
+        "min": "1.7.0",
+        "max": "*"
+      }
+    },
+  ]
+}

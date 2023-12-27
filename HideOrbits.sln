@@ -1,20 +1,25 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33424.131
+VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HideOrbits", "HideOrbitsProject\HideOrbits.csproj", "{D734C8FD-21D3-4C99-8722-3324D9A63F34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HideOrbits", "src\HideOrbits\HideOrbits.csproj", "{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Deploy|Any CPU = Deploy|Any CPU
+		DeployAndRun|Any CPU = DeployAndRun|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D734C8FD-21D3-4C99-8722-3324D9A63F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D734C8FD-21D3-4C99-8722-3324D9A63F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D734C8FD-21D3-4C99-8722-3324D9A63F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D734C8FD-21D3-4C99-8722-3324D9A63F34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{747F4A4F-2AE2-4C45-AB24-E56E7BF3673C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
